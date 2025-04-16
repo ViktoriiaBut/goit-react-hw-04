@@ -13,6 +13,7 @@ const ImageGallery = ({ images, onImageClick }) => {
             const { id, likes, user, urls } = image;
             const name = user?.name;
             const small = urls?.small;
+            const regular = urls?.regular;
   
             return (
               <li className={s.galleryItem} key={id}>
@@ -20,7 +21,7 @@ const ImageGallery = ({ images, onImageClick }) => {
                   name={name}
                   likes={likes}
                   cardPhoto={small}
-                  onClick={onImageClick}
+                  onClick={() => onImageClick(regular)}
                 />
               </li>
             );
@@ -30,5 +31,4 @@ const ImageGallery = ({ images, onImageClick }) => {
     );
   };
 export default ImageGallery;
-
 

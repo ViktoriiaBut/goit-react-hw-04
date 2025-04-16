@@ -6,6 +6,7 @@ import SearchBar from "./assets/SearchBar/SearchBar";
 import Loader from "./assets/Loader/Loader";
 import LoadMoreBtn from "./assets/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./assets/ErrorMessage/ErrorMessage";
+import ImageModal from "./assets/ImageModal/ImageModal";
 
 const KEY = "qPFeK_Yb8bseog7rmNx9ZiEqmz3TMS6gci6wwcZRweY";
 
@@ -17,6 +18,8 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [query, setQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const fetchImages = async (searchQuery, newPage = 1, isLoadMore = false) => {
     try {
@@ -63,6 +66,22 @@ const App = () => {
     fetchImages(newQuery, 1);
   };
 
+  function openModal() {
+    setIsModalOpen(true)
+    
+  };
+
+  function closeModal() {
+    setIsModalOpen(false)
+    
+  };
+
+  function handleClick (image) {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+    openModal();
+  };
+
   return (
     <>
       <Toaster />
@@ -71,11 +90,13 @@ const App = () => {
       {isLoading && <Loader load={true} />}
       {hasError && < ErrorMessage />}
 
-       <ImageGallery images={images} onImageClick={() => {}} />
+      <ImageGallery images={images} onImageClick={handleClick} />
 
       {page < totalPages && images.length > 0 && (
         <LoadMoreBtn onClick={addLoadMore} loadMore={isLoadingMore} />
       )}
+
+      <ImageModal isOpen={isModalOpen} image={selectedImage} onClose={closeModal} onClick={handleClick}/>
     </>
   );
 };

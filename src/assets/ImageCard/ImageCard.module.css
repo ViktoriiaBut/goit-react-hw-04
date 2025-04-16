@@ -17,3 +17,12 @@
     transform: scale(1.03);
     cursor: pointer;
 }
+
+.imageInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    font-size: 14px;
+  }
